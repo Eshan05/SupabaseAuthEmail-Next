@@ -29,7 +29,7 @@ export default function NFB() {
                 Back to Home
               </Button>
             </Link>
-            <Link href='mailto:tpo.rmdssoe@sinhgad.edu' className='w-full sm:w-auto'>
+            <Link href='#' className='w-full sm:w-auto'>
               <Button variant='outline' className='gap-2'>
                 <MailCheckIcon className='h-4 w-4' />
                 Contact us
