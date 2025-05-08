@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Supabase Authentiation (Email Provider)
 
-## Getting Started
+## 🍁 Overview
 
-First, run the development server:
+This repository features a full authentication setup (Sign-in/Sign-up, forgot password with link or OTP, email verification with magic link) as well as a proper middleware setup in Next.js. The setup works locally as well, if you are on windows you can use `sd-dev.ps1`. It has the following features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 💻 Technolgoies
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[![React JS](https://skillicons.dev/icons?i=react "React JS")](https://react.dev/ "React JS") [![Next JS](https://skillicons.dev/icons?i=next "Next JS")](https://nextjs.org/ "Next JS") ![Javascript](https://skillicons.dev/icons?i=ts "Typescript") [![Supabase](https://skillicons.dev/icons?i=supabase "Supabase")](https://www.typescriptlang.org/ "Typescript") [![Tailwind CSS](https://skillicons.dev/icons?i=tailwind "Tailwind CSS")](https://tailwindcss.com/ "Tailwind CSS") [![Vercel](https://skillicons.dev/icons?i=vercel "Vercel")](https://vercel.app/ "Vercel")
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Language**: Typescript
+2. **Backend**: [Next.js 15](https://nextjs.org/) + [Supabase](https://www.supabase.com/)
+3. **Frontend**: [Next.js 15](https://nextjs.org/) + UI Components via [`shadcn/ui`](https://ui.shadcn.com/) + Tailwind
+4. Redis for rate limiting via Upstash
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Features
 
-## Learn More
+- Full authentication setup with email provider
+- Good UI Template
+- Email verification (Magic Links) and password forgot functionality (Link or OTP)
+- Password strength checker with Zod regex
+- Proper query parameters and error handling
+- Uses PKCE flow 
+- Checks for existing credentials
+- Middleware that handles all necessary redirect cases
 
-To learn more about Next.js, take a look at the following resources:
+## 🤝 Flow
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- New signup -> verify email -> onboarding
+- New signup -> close browser -> open app -> redirected to signin -> signin (unconfirmed) -> redirected to verify email -> resend email -> verify email -> onboarding
+- New signup -> close browser -> open app -> redirected to signin -> signin (confirmed, not onboarded) -> onboarding
+- Login (already onboarded) -> goes to dashboard.
+- Login (already onboarded) -> password reset -> new password setup -> login with new password
+- Login (unconfirmed) -> verify email -> resend if need -> login with verified email
+- Forgot password (unconfirmed) -> password reset -> new password setup -> login with new password (No verification)
+- Forgot password (confirmed) -> password reset -> new password setup -> login with new password (No verification)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+With magic link after sign-up it hits `/api/auth/confirm` and verifies then redirects to onboarding
 
-## Deploy on Vercel
+## 📱 Screenshots
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<div align="center">
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Signin-Signup](public/images/Signin-Signup.png)
+![Signup-White](public/images/Signup-White.png)
+![Reset](public/images/Reset.png)
+
+</div>
+
+## 📄 Additional Notes
+
+- See LICENSE
+- When forgot password is done successfully there is no need to verify email again.
+- Feel free to raise issues if you notice anything wrong
+- For the onboarding you need to add it in your supabase `users` or equivalent table, you can discard that part as per your needs
