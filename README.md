@@ -41,9 +41,9 @@ With magic link after sign-up it hits `/api/auth/confirm` and verifies then redi
 
 <div align="center">
 
-![Signin-Signup](public/images/Signin-Signup.png)
-![Signup-White](public/images/Signup-White.png)
-![Reset](public/images/Reset.png)
+![Signin-Signup](public/Images/Signin-Signup.png)
+![Signup-White](public/Images/Signup-White.png)
+![Reset](public/Images/Reset.png)
 
 </div>
 
